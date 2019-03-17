@@ -133,7 +133,7 @@ public class Extractor
 				System.Console.WriteLine("resolutionY: " + cbddlp_file_head_t.resolutionY);
 				System.Console.WriteLine("previewOneOffsetAddress: 0x{0:X}", cbddlp_file_head_t.previewOneOffsetAddress);
 				System.Console.WriteLine("layersDefinitionOffsetAddress: 0x{0:X}", cbddlp_file_head_t.layersDefinitionOffsetAddress);
-				System.Console.WriteLine("numberOfLayers: " + (cbddlp_file_head_t.numberOfLayers + 1));
+				System.Console.WriteLine("numberOfLayers: " + cbddlp_file_head_t.numberOfLayers);
 				System.Console.WriteLine("previewTwoOffsetAddress: 0x{0:X}", cbddlp_file_head_t.previewTwoOffsetAddress);
 				System.Console.WriteLine("unknown4: " + cbddlp_file_head_t.unknown4);
 				System.Console.WriteLine("projectType: " + cbddlp_file_head_t.projectType);
@@ -190,7 +190,7 @@ public class Extractor
 					if (aaLevel > 1) System.Console.WriteLine("Image GROUP " + image + "----");
 					byte[] array3 = new byte[Marshal.SizeOf((object)layer_definition_t)];
 					int layerOffset = cbddlp_file_head_t.layersDefinitionOffsetAddress;
-					for (int layer=0; layer <= cbddlp_file_head_t.numberOfLayers; layer++)
+					for (int layer=0; layer < cbddlp_file_head_t.numberOfLayers; layer++)
 					{
 						Buffer.BlockCopy(fileDat, layerOffset, array3, 0, Marshal.SizeOf((object)layer_definition_t));
 						layer_definition_t = (layer_definition_t)BytesToStruct(array3, Marshal.SizeOf((object)layer_definition_t), layer_definition_t.GetType());
