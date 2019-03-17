@@ -185,11 +185,11 @@ public class Extractor
 				if (cbddlp_file_head_t.version == 1)
 					aaLevel = 1;
 				layer_definition_t layer_definition_t = default(layer_definition_t);
+				byte[] array3 = new byte[Marshal.SizeOf((object)layer_definition_t)];
+				int layerOffset = cbddlp_file_head_t.layersDefinitionOffsetAddress;
 				for (int image=1; image<=aaLevel; image++)
 				{
 					if (aaLevel > 1) System.Console.WriteLine("Image GROUP " + image + "----");
-					byte[] array3 = new byte[Marshal.SizeOf((object)layer_definition_t)];
-					int layerOffset = cbddlp_file_head_t.layersDefinitionOffsetAddress;
 					for (int layer=0; layer < cbddlp_file_head_t.numberOfLayers; layer++)
 					{
 						Buffer.BlockCopy(fileDat, layerOffset, array3, 0, Marshal.SizeOf((object)layer_definition_t));
