@@ -33,7 +33,7 @@ public class Extractor
 			public int layersDefinitionOffsetAddress;
 			public int numberOfLayers;
 			public int previewTwoOffsetAddress;
-			public int unknown4;
+			public int printTime;
 			public int projectType;
 			public int printParametersOffsetAddress;
 			public int printParametersSize;
@@ -135,10 +135,10 @@ public class Extractor
 				System.Console.WriteLine("layersDefinitionOffsetAddress: 0x{0:X}", cbddlp_file_head_t.layersDefinitionOffsetAddress);
 				System.Console.WriteLine("numberOfLayers: " + cbddlp_file_head_t.numberOfLayers);
 				System.Console.WriteLine("previewTwoOffsetAddress: 0x{0:X}", cbddlp_file_head_t.previewTwoOffsetAddress);
-				System.Console.WriteLine("unknown4: " + cbddlp_file_head_t.unknown4);
-				System.Console.WriteLine("projectType: " + cbddlp_file_head_t.projectType);
 				if (cbddlp_file_head_t.version == 2)
 				{
+					System.Console.WriteLine("printTime(seconds): " + cbddlp_file_head_t.printTime);
+					System.Console.WriteLine("projectType: " + cbddlp_file_head_t.projectType);
 					System.Console.WriteLine("printParametersOffsetAddress: 0x{0:X}", cbddlp_file_head_t.printParametersOffsetAddress);
 					System.Console.WriteLine("printParametersSize: " + cbddlp_file_head_t.printParametersSize);
 					System.Console.WriteLine("antiAliasingLevel: " + cbddlp_file_head_t.antiAliasingLevel);
@@ -150,6 +150,8 @@ public class Extractor
 				}
 				else
 				{
+					System.Console.WriteLine("unknown4: " + cbddlp_file_head_t.printTime);
+					System.Console.WriteLine("projectType: " + cbddlp_file_head_t.projectType);
 					System.Console.WriteLine("padding1: " + cbddlp_file_head_t.printParametersOffsetAddress);
 					System.Console.WriteLine("padding2: " + cbddlp_file_head_t.printParametersSize);
 					System.Console.WriteLine("padding3: " + cbddlp_file_head_t.antiAliasingLevel);
@@ -219,28 +221,28 @@ public class Extractor
 
 class MainClass
 {
-    static int Main(string[] args)
-    {
-        // Test if input arguments were supplied:
-        if (args.Length < 1)
-        {
-            System.Console.WriteLine("Please enter CBDDLP file.");
-            System.Console.WriteLine("Usage: CBDDLP <input .cbddlp file> ");
-            return 1;
-        }
+		static int Main(string[] args)
+		{
+				// Test if input arguments were supplied:
+				if (args.Length != 1)
+				{
+						System.Console.WriteLine("Please enter CBDDLP file.");
+						System.Console.WriteLine("Usage: CBDDLP <input .cbddlp file> ");
+						return 1;
+				}
 
-        // Get the mask image.
-        Extractor extractor = new Extractor();
-        int result = extractor.ExtractInfo(args[0]);
-        if (result != 0)
-        {
-            System.Console.WriteLine("CBDDLP file info cannot be extracted!");
-            return 1;
-        }
-        else
-            System.Console.WriteLine("Extracted info from CBDDLP file.");
+				// Get the mask image.
+				Extractor extractor = new Extractor();
+				int result = extractor.ExtractInfo(args[0]);
+				if (result != 0)
+				{
+						System.Console.WriteLine("CBDDLP file info cannot be extracted!");
+						return 1;
+				}
+				else
+						System.Console.WriteLine("Extracted info from CBDDLP file.");
 
-        return 0;
-    }
+				return 0;
+		}
 }
 
